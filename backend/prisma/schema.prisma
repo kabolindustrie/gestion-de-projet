@@ -16,7 +16,6 @@ model User {
   role      String    @default("user")
   projects  Project[]
 }
-
 model Category {
   id       Int               @id @default(autoincrement())
   name     String            @unique

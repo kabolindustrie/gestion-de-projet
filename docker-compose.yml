@@ -1,0 +1,41 @@
+services:
+  postgres:
+    image: postgres:15
+    container_name: gestion_db
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - gestion_db_data:/var/lib/postgresql/data
+    networks:
+      - gestion_network
+    ports:
+      - "${POSTGRES_PORT}:5432"
+
+  backend:
+    build:
+      context: ./backend
+    container_name: gestion_backend
+    environment:
+      DATABASE_URL: postgresql://gestion_user:gestion_pass@postgres:5432/gestion_db?schema=public
+      DB_HOST: ${DB_HOST}
+      DB_PORT: ${DB_PORT}
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_NAME: ${DB_NAME}
+    networks:
+      - gestion_network
+    # volumes:
+    ports:
+      - "${BACKEND_PORT}:3000"
+    depends_on:
+      - postgres
+
+networks:
+  gestion_network:
+    driver: bridge
+
+volumes:
+  gestion_db_data:
+    driver: local

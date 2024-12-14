@@ -1,5 +1,4 @@
 import Fastify from 'fastify';
-import { FastifyZod } from 'fastify-zod';
 import userRoutes from './routes/user.routes'; // Assurez-vous que ce fichier existe et contient vos routes
 import fastifyCors from '@fastify/cors';
 import dotenv from 'dotenv';
