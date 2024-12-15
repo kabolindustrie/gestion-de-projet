@@ -76,7 +76,9 @@ export const deleteProjectById = async (req: FastifyRequest<{ Params: { id: stri
 };
 
 
-
+//////
+// Ajouter un projet
+//////
 export const addProject = async (req: FastifyRequest, reply: FastifyReply) => {
     try {
         const { name, description, isFinished, userIds, categoryIds } = req.body as {
@@ -119,4 +121,3 @@ export const addProject = async (req: FastifyRequest, reply: FastifyReply) => {
         });
     }
 };
-

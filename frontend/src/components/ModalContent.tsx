@@ -11,6 +11,7 @@ export default function ModalContent({ closeModal }: ModalContentProps) {
   const [category, setCategory] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
+
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log({

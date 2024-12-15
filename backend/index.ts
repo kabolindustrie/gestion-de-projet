@@ -30,9 +30,11 @@ fastify.get('/', async (request, reply) => {
 });
 
 // Routes
-fastify.register(userRoutes, { prefix: '/users' });
-fastify.register(categoryRoutes, { prefix: '/categories' });
-fastify.register(projectRoutes, { prefix: '/projects' });
+fastify.register(async (api) => {
+  api.register(userRoutes, { prefix: '/users' });
+  api.register(categoryRoutes, { prefix: '/categories' });
+  api.register(projectRoutes, { prefix: '/projects' });
+}, { prefix: '/api' });
 
 // Démarrer le serveur
 fastify.listen({ port: 3000, host: '0.0.0.0' }, (err) => {
