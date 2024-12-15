@@ -5,7 +5,6 @@ import ModalContent from "../components/ModalContent";
 function HomePage() {
   const [showModal, setShowModal] = useState<boolean>(false);
 
-  // Exemple de données de projets
   const projects = [
     {
       id: 1,

@@ -6,12 +6,11 @@ interface ModalContentProps {
 }
 
 export default function ModalContent({ closeModal }: ModalContentProps) {
-  // États pour le formulaire
+
   const [title, setTitle] = useState<string>("");
   const [category, setCategory] = useState<string>("");
   const [description, setDescription] = useState<string>("");
 
-  // Soumission du formulaire
   const handleSubmit = (e: FormEvent) => {
     e.preventDefault();
     console.log({
@@ -19,7 +18,6 @@ export default function ModalContent({ closeModal }: ModalContentProps) {
       category,
       description,
     });
-    // Ferme la modal après soumission
     closeModal();
   };
 
