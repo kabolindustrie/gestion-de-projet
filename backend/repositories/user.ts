@@ -1,22 +1,37 @@
 import prisma from "../prisma/client";
-import { User } from "../models/user.models";
+import { User, UserWithoutPassword } from "../models/user";
 import { hashPassword } from "../utils/password.utils";
 
 /////
 // Trouver tous les utilisateurs
 /////
-export const getAllUsersRepo = async (): Promise<User[]> => {
+export const getAllUsersRepo = async (): Promise<UserWithoutPassword[]> => {
     return prisma.user.findMany({
-        include: { projects: true }, // Inclut les projets liés
+        select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            role: true,
+            projects: true,
+        },
     });
 };
+
 /////
 // Trouver un utilisateur par ID
 /////
-export const findUserByIdRepo = async (id: number): Promise<User | null> => {
+export const findUserByIdRepo = async (id: number): Promise<UserWithoutPassword | null> => {
     return prisma.user.findUnique({
         where: { id },
-        include: { projects: true }, // Inclut les projets liés
+        select: {
+            id: true,
+            firstName: true,
+            lastName: true,
+            email: true,
+            role: true,
+            projects: true,
+        },
     });
 };
 
@@ -39,7 +54,7 @@ export const addUser = async (
     password: string,
     role: string = "user"
 ): Promise<User> => {
-    const hashedPassword = await hashPassword(password);
+    const hashedPassword = hashPassword(password);
 
     const user = await prisma.user.create({
         data: {
@@ -69,7 +84,7 @@ export const updateUser = async (
     if (firstName) dataToUpdate.firstName = firstName;
     if (lastName) dataToUpdate.lastName = lastName;
     if (email) dataToUpdate.email = email;
-    if (password) dataToUpdate.password = await hashPassword(password);
+    if (password) dataToUpdate.password = hashPassword(password);
     if (role) dataToUpdate.role = role;
 
     return prisma.user.update({

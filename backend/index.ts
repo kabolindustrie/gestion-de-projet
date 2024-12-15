@@ -1,7 +1,9 @@
 import Fastify from 'fastify';
-import userRoutes from './routes/user.routes'; // Assurez-vous que ce fichier existe et contient vos routes
+import userRoutes from './routes/user';
+import categoryRoutes from './routes/category';
 import fastifyCors from '@fastify/cors';
 import dotenv from 'dotenv';
+import projectRoutes from './routes/project';
 
 // Charger les variables d'environnement
 dotenv.config();
@@ -13,7 +15,7 @@ const fastify = Fastify({
 
 // Configuration CORS
 const corsOptions = {
-    origin: process.env.CORS_ORIGIN || "http://localhost:5173", // Assurez-vous que le frontend pointe sur ce port
+    origin: process.env.CORS_ORIGIN || "http://localhost:5173",
     methods: ['GET', 'POST', 'PATCH', 'DELETE'],
     allowedHeaders: ['Content-Type', 'Authorization'],
     credentials: true,
@@ -27,8 +29,10 @@ fastify.get('/', async (request, reply) => {
     return { message: 'API is running' };
 });
 
-// Enregistrer les routes utilisateur
+// Routes
 fastify.register(userRoutes, { prefix: '/users' });
+fastify.register(categoryRoutes, { prefix: '/categories' });
+fastify.register(projectRoutes, { prefix: '/projects' });
 
 // Démarrer le serveur
 fastify.listen({ port: 3000, host: '0.0.0.0' }, (err) => {

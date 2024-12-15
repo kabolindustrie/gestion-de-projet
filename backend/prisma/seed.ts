@@ -35,25 +35,61 @@ async function main() {
                 data: {
                     name: faker.commerce.productName(),
                     description: faker.lorem.sentence(),
-                    userId: faker.helpers.arrayElement(users).id,
+                    isFinished: faker.datatype.boolean(),
                 },
             })
         )
     );
 
-    // Création des relations entre projets et catégories
+    // Création des relations entre utilisateurs et projets
+    const userProjects = await Promise.all(
+        projects.map(async (project) => {
+            const assignedUsers = new Set<number>();
+
+            while (assignedUsers.size < 3) {
+                const randomUser = faker.helpers.arrayElement(users);
+                if (!assignedUsers.has(randomUser.id)) {
+                    assignedUsers.add(randomUser.id);
+                    await prisma.userProject.create({
+                        data: {
+                            userId: randomUser.id,
+                            projectId: project.id,
+                        },
+                    });
+                }
+            }
+        })
+    );
+
     const projectCategories = await Promise.all(
-        projects.flatMap((project) =>
-            categories.map((category) =>
-                prisma.projectCategory.create({
+        projects.map(async (project) => {
+            const assignedCategories = new Set<number>();
+            const numberOfCategories = Math.floor(Math.random() * 5) + 1;
+
+
+            const categoriesToAssign = Array.from({ length: numberOfCategories }, () => {
+                let randomCategory = faker.helpers.arrayElement(categories);
+
+
+                while (assignedCategories.has(randomCategory.id)) {
+                    randomCategory = faker.helpers.arrayElement(categories);
+                }
+
+                assignedCategories.add(randomCategory.id);
+
+                return prisma.projectCategory.create({
                     data: {
                         projectId: project.id,
-                        categoryId: category.id,
+                        categoryId: randomCategory.id,
                     },
-                })
-            )
-        )
+                });
+            });
+
+            return Promise.all(categoriesToAssign);
+        })
     );
+
+
 
     console.log('Base de données peuplée avec succès !');
 }

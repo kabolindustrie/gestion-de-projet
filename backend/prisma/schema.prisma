@@ -1,44 +1,53 @@
 generator client {
-  provider = "prisma-client-js"
+    provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "postgresql"
-  url      = env("DATABASE_URL")
+    provider = "postgresql"
+    url      = env("DATABASE_URL")
 }
 
 model User {
-  id        Int       @id @default(autoincrement())
-  firstName String
-  lastName  String
-  email     String    @unique
-  password  String
-  role      String    @default("user")
-  projects  Project[]
+    id        Int           @id @default(autoincrement())
+    firstName String
+    lastName  String
+    email     String        @unique
+    password  String
+    role      String        @default("user")
+    projects  UserProject[]
 }
+
 model Category {
-  id       Int               @id @default(autoincrement())
-  name     String            @unique
-  projects ProjectCategory[]
+    id       Int               @id @default(autoincrement())
+    name     String            @unique
+    projects ProjectCategory[]
 }
 
 model Project {
-  id          Int               @id @default(autoincrement())
-  description String?
-  createdAt   DateTime          @default(now())
-  updatedAt   DateTime          @updatedAt
-  userId      Int
-  name        String
-  user        User              @relation(fields: [userId], references: [id], onDelete: Cascade)
-  categories  ProjectCategory[]
+    id          Int               @id @default(autoincrement())
+    description String?
+    name        String
+    isFinished  Boolean
+    categories  ProjectCategory[]
+    users       UserProject[]
 }
 
 model ProjectCategory {
-  id         Int      @id @default(autoincrement())
-  projectId  Int
-  categoryId Int
-  category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
+    id         Int      @id @default(autoincrement())
+    projectId  Int
+    categoryId Int
+    category   Category @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+    project    Project  @relation(fields: [projectId], references: [id], onDelete: Cascade)
 
-  @@unique([projectId, categoryId])
+    @@unique([projectId, categoryId])
+}
+
+model UserProject {
+    id        Int     @id @default(autoincrement())
+    userId    Int
+    projectId Int
+    user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+    project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+
+    @@unique([userId, projectId])
 }

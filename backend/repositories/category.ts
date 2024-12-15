@@ -1,5 +1,15 @@
 import prisma from "../prisma/client";
-import { Category } from "../models/category.models";
+import { Category } from "../models/category";
+
+/////
+// Trouver une catégorie par name
+/////
+export const findCategoryByName = async (name: string) => {
+    return await prisma.category.findUnique({
+        where: { name },
+    });
+};
+
 
 /////
 // Trouver toutes les catégories
