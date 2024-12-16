@@ -1,5 +1,5 @@
-import { useEffect, useState } from 'react';
-import api from '../utils/api';
+import { useQuery } from "@tanstack/react-query";
+import api from "../utils/api";
 
 interface Project {
   id: number;
@@ -8,25 +8,10 @@ interface Project {
   isFinished: boolean;
 }
 
-export const useProjects = () => {
-  const [projects, setProjects] = useState<Project[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
-  const [error, setError] = useState<string | null>(null);
+const fetchProjects = async () => await api.get<Project[]>("/projects");
 
-  useEffect(() => {
-    const fetchProjects = async () => {
-      try {
-        const response = await api.get<Project[]>('/projects');
-        setProjects(response.data);
-      } catch (error) {
-        setError("Impossible de charger les projets");
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    fetchProjects();
-  }, []);
-
-  return { projects, loading, error };
-};
+export const useProjects = () =>
+  useQuery({
+    queryKey: ["projects"],
+    queryFn: fetchProjects,
+  });

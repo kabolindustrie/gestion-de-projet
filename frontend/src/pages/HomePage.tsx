@@ -1,9 +1,13 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
-import ModalContent from "../components/ModalContent";
+// import ModalContent from "../components/ModalContent";
+import NewModalContent from "../components/NewModalContent";
+
+import CategoryModalContent from "../components/CategoryModalContent";
 
 function HomePage() {
-  const [showModal, setShowModal] = useState<boolean>(false);
+  const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
+  const [showCategoryModal, setShowCategoryModal] = useState<boolean>(false);
 
   const projects = [
     {
@@ -48,13 +52,19 @@ function HomePage() {
             C'est votre page d'accueil avec Tailwind CSS et React.
           </p>
 
-          {/* Button pour créer un projet */}
-          <div className="flex justify-center mt-8">
+          {/* Buttons pour créer un projet ou une catégorie */}
+          <div className="flex justify-center mt-8 space-x-4">
             <button
-              onClick={() => setShowModal(!showModal)}
+              onClick={() => setShowProjectModal(!showProjectModal)}
               className="px-6 py-3 bg-secondary text-white font-semibold rounded-lg hover:bg-blue-700 transition duration-300"
             >
               Créer un projet
+            </button>
+            <button
+              onClick={() => setShowCategoryModal(!showCategoryModal)}
+              className="px-6 py-3 bg-green-500 text-white font-semibold rounded-lg hover:bg-green-700 transition duration-300"
+            >
+              Créer une catégorie
             </button>
           </div>
         </div>
@@ -82,8 +92,18 @@ function HomePage() {
           ))}
         </div>
 
-        {/* Modal */}
-        {showModal && createPortal(<ModalContent closeModal={() => setShowModal(!showModal)} />, document.body)}
+        {/* Modales */}
+        {showProjectModal &&
+          createPortal(
+            <NewModalContent closeModal={() => setShowProjectModal(!showProjectModal)} />,
+            document.body
+          )}
+
+        {showCategoryModal &&
+          createPortal(
+            <CategoryModalContent closeModal={() => setShowCategoryModal(!showCategoryModal)} />,
+            document.body
+          )}
       </main>
     </div>
   );
