@@ -3,7 +3,7 @@ import { Project } from "../models/project";
 
 
 /////
-// Trouver tous les utilisateurs
+// Trouver tous les projets
 /////
 export const getAllProjectRepo = async (): Promise<Project[]> => {
     const projects = await prisma.project.findMany({
@@ -42,7 +42,7 @@ export const getAllProjectRepo = async (): Promise<Project[]> => {
 };
 
 /////
-// Trouver un utilisateur par ID
+// Trouver un projet par ID
 /////
 export const getProjectByIdRepo = async (id: number): Promise<Project | null> => {
     const project = await prisma.project.findUnique({
@@ -84,7 +84,7 @@ export const getProjectByIdRepo = async (id: number): Promise<Project | null> =>
 
 
 /////
-// Supprimer un utilisateur
+// Supprimer un projet par ID
 /////
 export const deleteProjectByIdRepo = async (id: number): Promise<Project | null> => {
     return prisma.project.delete({
@@ -142,4 +142,62 @@ export const addProjectRepo = async (
     });
 
     return project;
+};
+
+//////
+// Mettre à jour un projet
+///
+export const updateProjectRepo = async (
+  id: number,
+  name: string | undefined,
+  description: string | null | undefined,
+  isFinished: boolean | undefined,
+  userIds: number[] | undefined,
+  categoryIds: number[] | undefined
+) => {
+  const project = await prisma.project.update({
+      where: { id },
+      data: {
+          name,
+          description,
+          isFinished,
+          users: userIds
+              ? {
+                    set: userIds.map((userId) => ({ id: userId })),
+                }
+              : undefined,
+          categories: categoryIds
+              ? {
+                    set: categoryIds.map((categoryId) => ({ id: categoryId })),
+                }
+              : undefined,
+      },
+      include: {
+          users: {
+              include: {
+                  user: {
+                      select: {
+                          id: true,
+                          firstName: true,
+                          lastName: true,
+                          email: true,
+                          role: true,
+                      },
+                  },
+              },
+          },
+          categories: {
+              include: {
+                  category: {
+                      select: {
+                          id: true,
+                          name: true,
+                      },
+                  },
+              },
+          },
+      },
+  });
+
+  return project;
 };

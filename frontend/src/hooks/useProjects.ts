@@ -9,7 +9,7 @@ interface Project {
 }
 
 export const useProjects = () => {
-  const [projects, setProjects] = useState<Project[]>([]); 
+  const [projects, setProjects] = useState<Project[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [error, setError] = useState<string | null>(null);
 

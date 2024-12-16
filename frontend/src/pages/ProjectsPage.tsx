@@ -11,9 +11,9 @@ const ProjectsPage: React.FC = () => {
     <div className="container mx-auto p-8">
       <h1 className="text-3xl font-bold mb-6">Liste des Projets</h1>
       {projects.length > 0 ? (
-        <ul className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <ul className="space-y-4">
           {projects.map((project) => (
-            <li key={project.id} className="p-4 bg-gray-100 rounded shadow hover:shadow-lg transition">
+            <li key={project.id} className="p-4 bg-gray-100 rounded shadow">
               <h2 className="text-xl font-semibold">{project.name}</h2>
               <p>{project.isFinished ? "Terminé" : "En cours"}</p>
               <p>{project.description || "Aucune description disponible"}</p>
