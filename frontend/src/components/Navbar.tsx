@@ -35,14 +35,14 @@ function Navbar() {
           } lg:block`}
         >
           <li className="py-2 px-4 rounded-lg cursor-pointer text-center hover:bg-black text-white text-lg font-semibold">
-            <Link to="/dashboard">🏠 Tableau de bord</Link>
+            <Link to="/">🏠 Tableau de bord</Link>
           </li>
           <li className="py-2 px-4 rounded-lg cursor-pointer text-center hover:bg-dark text-white text-lg font-semibold">
             <Link to="/projects">📋 Projets</Link>
           </li>
-          <li className="py-2 px-4 rounded-lg cursor-pointer text-center hover:bg-dark text-white text-lg font-semibold">
+          {/* <li className="py-2 px-4 rounded-lg cursor-pointer text-center hover:bg-dark text-white text-lg font-semibold">
             <Link to="/tasks">✅ Tâches</Link>
-          </li>
+          </li> */}
           <li className="py-2 px-4 rounded-lg cursor-pointer text-center hover:bg-dark text-white text-lg font-semibold">
             <Link to="/profile">👤 Profil</Link>
           </li>
