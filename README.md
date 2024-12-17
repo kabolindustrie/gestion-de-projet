@@ -40,6 +40,7 @@ npx prisma db seed
  Installez les dépendances nécessaires pour le frontend et démarrer le serveur de développement en local, utilisez la commande suivante :
 
 ```sh
+cd ../frontend
 npm install
 npm run dev
 ```
@@ -51,9 +52,13 @@ npm run dev
 Un Modèle Physique de Données (MPD) a été conçu pour garantir une base de données structurée et adaptée aux besoins de l'application.
 Ce modèle représente les tables de la base de données et leurs relations. Il a été élaboré avec Prisma comme ORM pour faciliter l'interaction avec la base de données.
 
+<img src="/frontend/public/assets/images/mpd_gestion_de_projet.png" width="400" height="400" />
+
 
 ### Diagramme de Séquence
 Le Diagramme de Séquence UML illustre les interactions principales entre les entités du système, en particulier les échanges entre l'utilisateur et l'application pour la gestion des projets et des catégories.
+
+<img src="/frontend/public/assets/images/diagramme_sequence-gestion_de_projet.png" width="400" height="400" />
 
 
 ### Décisions de Conception
