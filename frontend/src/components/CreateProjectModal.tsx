@@ -46,8 +46,8 @@ export default function CreateProjectModal({ closeModal }: ModalContentProps) {
     if (isSuccess) {
       const timeout = setTimeout(() => {
         closeModal();
-      }, 1000); // Fermeture après 1 seconde
-      return () => clearTimeout(timeout); // Nettoyage du timeout
+      }, 1000);
+      return () => clearTimeout(timeout); 
     }
   }, [isSuccess, closeModal]);
 
