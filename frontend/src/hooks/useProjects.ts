@@ -1,14 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
+import { Project } from "../type";
 import api from "../utils/api";
 
-interface Project {
-  id: number;
-  name: string;
-  description?: string;
-  isFinished: boolean;
-}
-
-const fetchProjects = async () => await api.get<Project[]>("/projects");
+const fetchProjects = async (): Promise<Project[]> =>
+  await api.get<Project[]>("/projects");
 
 export const useProjects = () =>
   useQuery({

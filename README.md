@@ -6,9 +6,12 @@ Ce projet a pour objectif de développer une application web de gestion de proje
 
 Les fonctionnalités principales sont les suivantes :
 
-**Gestion des catégories :** Créer, lire, mettre à jour et supprimer des catégories (CRUD).
-**Gestion des projets :** Créer, lire, mettre à jour et supprimer des projets (CRUD).
-**Filtrage des projets :** Filtrer les projets par catégorie.
+## Gestion des catégories :
+Créer, lire, mettre à jour et supprimer des catégories (CRUD).
+## Gestion des projets :
+Créer, lire, mettre à jour et supprimer des projets (CRUD).
+## Filtrage des projets :
+Filtrer les projets par catégorie.
 une application web de gestion de projets qui permet aux utilisateurs de gérer des projets.
 
 ### Déploiement et Lancement
@@ -18,6 +21,9 @@ Avant de commencer, assurez-vous d'avoir les éléments suivants installés :
 
  - Docker
  - Node.js (version 16.x ou supérieure)
+
+## note .env
+Pour faciliter la configuration le fichier .env n'est pas présent dans le gitignore. cependant ce n'est pas une bonne pratique et il est recommandé de ne pas le mettre dans le gitignore.
 
 # Lancement du backend
 
@@ -82,12 +88,24 @@ react-hook-form a été utilisé pour la gestion des formulaires dans l'applicat
 ## Utilisation de TanStack Query
 TanStack Query (anciennement React Query) est utilisé pour la gestion des requêtes asynchrones côté frontend. Il permet de récupérer, mettre en cache et synchroniser les données provenant de l'API backend de manière efficace et réactive, améliorant ainsi l'expérience utilisateur.
 
+## Utilisation de Tailwind CSS
+
+Tailwind CSS a été utilisé pour la conception des composants et du design de l'application frontend. Cette bibliothèque de styles utilitaires permet de créer des interfaces utilisateur modernes, réactives et personnalisables, tout en facilitant la maintenance et la cohérence du design.
+
+## Utilisation de Nuqs
+
+Nuqs est utilisé pour la gestion des requêtes asynchrones côté backend. Il permet de créer des requêtes RESTful de manière simple et efficace, facilitant ainsi la communication entre le frontend et le backend de l'application.
+
 # AXE D'AMÉLIORATION
 
 Dans la consigne il était noté qu'il y avait une raltion many to many entre Project et Catégorie. Il n'était pas préciser qu'il y avait une relation many to many entre Project et User. Cependant j'ai pris la liberté de faire cette relation qui me semblait pertinente.
 
 **Authentification** : L'authentification n'a pas encore été mise en place, mais la base de données est conçue pour accueillir facilement cette fonctionnalité via la table User.
 
+**Edition d'un projet** : La fonctionnalité d'édition d'un projet est mis en place côté backend mais n'est pas encore implémentée côté frontend. L'ajout de cette fonctionnalité permettrait aux utilisateurs de modifier les détails d'un projet existant.
+
 **Tests unitaires**: Aucun test unitaire n'a été intégré pour le moment. L'ajout de tests automatisés, notamment avec Jest, est prévu pour garantir la stabilité de l'application à long terme.
 
 **Composants réutilisables** : L'utilisation de la bibliothèque shadcn pourrait être envisagée pour créer des composants plus robustes, accessibles, réutilisables et maintenables, permettant ainsi de simplifier le travail des développeurs sur le projet.
+
+**design et CSS** : L'ajout de styles CSS plus élaborés et d'un design plus attrayant pourrait améliorer l'expérience utilisateur et rendre l'application plus professionnelle.
