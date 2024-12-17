@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { createPortal } from "react-dom";
 // import ModalContent from "../components/ModalContent";
-import NewModalContent from "../components/NewModalContent";
+import NewModalContent from "../components/CreateProjectModal";
 
 import CategoryModalContent from "../components/CategoryModalContent";
 

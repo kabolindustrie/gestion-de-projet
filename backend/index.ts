@@ -1,6 +1,6 @@
 import Fastify from 'fastify';
 import userRoutes from './routes/user';
-import categoryRoutes from './routes/category';
+import categoryRoutes from './prisma/category';
 import fastifyCors from '@fastify/cors';
 import dotenv from 'dotenv';
 import projectRoutes from './routes/project';
