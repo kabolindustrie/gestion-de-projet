@@ -16,7 +16,7 @@ type FormData = {
   categoryIds: string;
 };
 
-export const useCreateProjects = () =>
+export const useEditProjects = () =>
   useMutation({
     mutationFn: ({
       body,

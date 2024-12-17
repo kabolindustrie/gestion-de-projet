@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { useCreateProjects } from "../hooks/mutation/useCreateProjects";
 import { useCategories } from "../hooks/useCategories";
@@ -16,7 +17,6 @@ type FormData = {
 };
 
 export default function CreateProjectModal({ closeModal }: ModalContentProps) {
-  
   // Récupération des catégories
   const {
     data: categories,
@@ -40,6 +40,16 @@ export default function CreateProjectModal({ closeModal }: ModalContentProps) {
     handleSubmit,
     formState: { errors },
   } = useForm<FormData>();
+
+  // Fermeture automatique du modal après succès
+  useEffect(() => {
+    if (isSuccess) {
+      const timeout = setTimeout(() => {
+        closeModal();
+      }, 1000); // Fermeture après 1 seconde
+      return () => clearTimeout(timeout); // Nettoyage du timeout
+    }
+  }, [isSuccess, closeModal]);
 
   // Soumission du formulaire
   const onSubmit = handleSubmit((data) => {

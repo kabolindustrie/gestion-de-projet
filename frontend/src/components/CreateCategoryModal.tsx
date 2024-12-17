@@ -42,7 +42,7 @@ export default function CreateCategoryModal({ closeModal }: CategoryModalContent
       setIsSuccess(true);
       setTimeout(() => {
         closeModal(); // Ferme le modal après un succès
-      }, 2000);
+      }, 1000);
     } finally {
       setIsLoading(false);
     }
