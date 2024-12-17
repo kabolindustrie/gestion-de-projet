@@ -3,7 +3,7 @@ import { createPortal } from "react-dom";
 // import ModalContent from "../components/ModalContent";
 import NewModalContent from "../components/CreateProjectModal";
 
-import CategoryModalContent from "../components/CategoryModalContent";
+import CategoryModalContent from "../components/CreateCategoryModal";
 
 function HomePage() {
   const [showProjectModal, setShowProjectModal] = useState<boolean>(false);
